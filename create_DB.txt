@@ -1,0 +1,13 @@
+create table question(q_number int(1),
+						q_text varchar(100),
+						primary key(q_number))
+						engine=InnoDB;
+
+create table choice(question_number int(1),
+						c_number int(1),
+						c_text varchar(50) not null,
+						correct boolean not null,
+						primary key(question_number, c_number),
+						foreign key(question_number)
+							references question(q_number))
+						engine=InnoDB;

@@ -1,0 +1,35 @@
+insert into question
+values(1,"In the end, does good win over evil?");
+
+insert into question
+values(2,"In J.K. Rowling's Harry Potter, does Hermione ever fall in love with someone other than Harry or Ron?");
+
+insert into question
+values(3,"In 1969 a quest for the moon started. Were the astronauts successful?");
+
+insert into choice
+values(1,1,"No!",FALSE);
+
+insert into choice
+values(1,2,"42!",FALSE);
+
+insert into choice
+values(1,3,"Yes!",TRUE);
+
+insert into choice
+values(2,1,"Yes!",TRUE);
+
+insert into choice
+values(2,2,"Who is Hermione?",FALSE);
+
+insert into choice
+values(2,3,"No!",FALSE);
+
+insert into choice
+values(3,1,"Yes, a small step for man and a giant leap...!",TRUE);
+
+insert into choice
+values(3,2,"No, they were blasted out of space by the Empire.",FALSE);
+
+insert into choice
+values(3,3,"Didn't they land on Vulcan instead?",FALSE);
