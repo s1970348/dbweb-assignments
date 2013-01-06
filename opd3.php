@@ -10,16 +10,18 @@ session_start(); ?>
 <body>
 <?
 require_once('dbconnect.php');
-
-if (!isset($_SESSION['active'])) { //1st time or expired
+//or $_SESSION['active']>60*60*24*7
+if (!isset($_SESSION['active'])) { //1st time or expired or when reloading 1st question
 //Workaround for first iteration
 $_REQUEST['public'] = 'pie';
 $_SESSION['qnum']=1;
 $_SESSION['ncorrect']=0;
 $_SESSION['active']=$_SERVER["REQUEST_TIME"];
 $querynumber=1;
-} else {
+} else {//not 1st or expired
 $_SESSION['active']=$_SERVER["REQUEST_TIME"];
+if (isset($_POST['postedqnum'])){
+$_SESSION['qnum']=$_POST['postedqnum'];
 }
 if ($_SESSION['qnum'] != 1){
 $querynumber = $_SESSION['qnum'] -1;
@@ -33,6 +35,8 @@ $correct_answer= $answer_row['c_text'];
 if ($correct_answer == $_REQUEST['public']){
     ++$_SESSION['ncorrect'];
     }
+}
+
 // Is there a way to query for number of rows?
 if ($_SESSION['qnum'] == 4){
 echo('klaar met de QUIZ <BR /> You answered : '.$_SESSION['ncorrect'].'answers out of '.$querynumber.' correctly!');
@@ -52,7 +56,7 @@ $questionqueryresult= mysql_query($query2) or die ('QUESTIONQUERY FAILT' . mysql
 while($question_row = mysql_fetch_array($questionqueryresult)){
 array_push($questionarray , $question_row['c_text']);
 }
-//echo questionform
+$postqnum =$_SESSION['qnum'] + 1;
 echo("
 <fieldset id='question'>
 <legend>Question number : ". $_SESSION['qnum'] ." </legend>
@@ -68,10 +72,10 @@ echo("
 
 <br />
 <input TYPE='submit'NAME='answer' ID='answer' VALUE='Answer question' />
+<input type='hidden' name='postedqnum' value='". $postqnum  ."' />
+
 </form>
 </fieldset> ");
-
-++$_SESSION['qnum'];
 }
 ?>
 
