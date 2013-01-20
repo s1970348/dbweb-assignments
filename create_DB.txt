@@ -11,3 +11,8 @@ create table choice(question_number int(1),
 						foreign key(question_number)
 							references question(q_number))
 						engine=InnoDB;
+						
+create table HallofFame(username varchar(20),
+                        RightAnswers int(1),
+                        primary key(username, RightAnswers))
+                        engine=InnoDB;
